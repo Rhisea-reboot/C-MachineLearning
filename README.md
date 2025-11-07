@@ -1,2 +1,2 @@
 # C-MachineLearning
-Try
+Try to use C++ to achieve Machine Learning
