@@ -38,9 +38,22 @@ inline double lossfunction(vector<double> w,double b,bool kind,int x){ //µ¼¹ýµÄ³
 			pre[i] = b;
 		} 
 		for (int i=0;i<n;i++) {
-			for (int j=0;j<100;j++){
+			int j = 0;
+			const double w_i = w[i];
+			for (;j<100;j+=4){
+				__m256d vw = _mm256_broadcast_sd(&w_i);
+				__m256d vx = _mm256_loadu_pd(simple_x[i].data() + j);
+				__m256d vpre = _mm256_loadu_pd(pre + j);
+				__m256d vc = _mm256_mul_pd(vw,vx);
+				__m256d vc1 = _mm256_add_pd(vc,vpre);
+				_mm256_storeu_pd(pre+j,vc1);
+			}
+			for (;j<100;j++){
 				pre[j] += w[i]*simple_x[i][j];
 			}
+//			for (int j=0;j<100;j++){
+//				pre[j] += w[i]*simple_x[i][j];
+//			}
 		}
 		for (int i=0;i<100;i++){
 			sum += (pre[i]-simple_y[i])*simple_x[x][i];
