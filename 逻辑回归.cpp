@@ -1,4 +1,6 @@
+#pragma GCC optimize(3)
 #include <bits/stdc++.h>
+#include <immintrin.h> 
 using namespace std;
 #define _USE_MATH_DEFINES
 inline double read(){ //¿ì¶Á 
@@ -74,7 +76,7 @@ inline double lossfunction(vector<double> w,double b,bool kind,int x){ //µ¼¹ıµÄ³
 		return sum/100;
 	}
 }
-inline double comloss(vector<double> w,double b){
+inline double comloss(vector<double> w,double b){//¼ìÑéÌİ¶ÈÊÇ·ñÊÕÁ² 
 	double total_loss = 0.0;
     double pre[101];
     for (int i=0;i<100;i++) pre[i] = b;
